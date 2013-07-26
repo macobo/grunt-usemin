@@ -64,5 +64,12 @@ describe('fileprocessor', function () {
       var awaited = '{ "key": "fonts/2123.awesome-font.svg?#iefix" }';
       assert.equal(awaited, cp.process());
     });
+
+    it('should replace multiple different paths', function() {
+        var content = '{ "key": "fonts/awesome-font.svg", "abc": images/pic.png" }';
+        var cp = new FileProcessor('', 'build/css', content, revvedfinder);
+        var awaited = '{ "key": "fonts/2123.awesome-font.svg", "abc": images/2123.pic.png" }';
+        assert.equal(awaited, cp.process());
+    });
   });
 });
